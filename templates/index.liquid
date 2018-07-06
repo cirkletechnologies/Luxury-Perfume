@@ -1,0 +1,272 @@
+{{ content_for_index }}
+{% if settings.maincarousel_active %}
+<section class="main-slideshow">
+  <div id="home-slideshow" class="home-slideshow-wrapper">
+    {% if settings.slide-active-1 != false or slide-active-2 != false or settings.slide-active-3 != false or settings.slide-active-4 != false or settings.slide-active-5 != false %}    
+    <div class="home-slideshow-inner">
+      <div class="home-slideshow">
+        <ul class="slides">
+          {% for i in (1..5) %}
+          {% capture show_slide %}slide-active-{{ i }}{% endcapture %}
+          {% capture image %}slide-image-{{ i }}.jpg{% endcapture %}
+          {% capture caption %}slide-caption-{{ i }}{% endcapture %}                  
+          {% capture link %}slide-link-{{ i }}{% endcapture %}                           
+          {% capture actiontext %}slide-action-text-{{ i }}{% endcapture %}
+          {% capture captionposition %}slide-position-{{ i }}{% endcapture %}          
+          {% if settings[show_slide] %}
+          <li class="slideshow-{{i}}">          
+            <img src="{{ image | asset_url }}" alt="{{image}}" />
+            <div class="caption position-{{ settings[captionposition] }}">
+              <div class="slide-caption">
+                <div class="dis_tablecell">
+                  <div class="container">
+                    <p>{{ settings[caption] }}</p>
+                    {% if settings[actiontext] != "" %}
+                    <div class="flex-action not-animated"><a class="btn" href="{{settings[link]}}">{{settings[actiontext]}}</a></div>
+                    {% endif %} 
+                  </div>                  
+                </div>                    
+              </div>                             
+            </div>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+{% if settings.general_gotodown %}
+<section class="home_gotodown_layout">
+  <div class="home_gotodown_wrapper">
+    <div class="home_gotodown_inner">
+      <div id="scroll-to-down">
+        <i class="fa fa-angle-double-down"></i>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if settings.home_features_active %}
+<section id="home_features_layout">
+  <div class="home_features_wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="home_features_inner">
+          <div class="home_features-title home-title"><h4>{{ settings.home_features_title }}</h4></div>
+          <div class="home_features-content home-content"> 
+            {% if settings.home_newperfumes_active %}
+            <div class="home_features-newperfumes">
+              <div class="col-sm-6">
+                <a href="{{ settings.home_newperfumes_link }}" class="newperfumes-link feature_item_link ">
+                  <img src="{{ 'home_newperfumes_image1.png' | asset_url }}" alt="" />
+                </a>
+              </div>
+              <div class="col-sm-6">
+                <div class="features_item_title newperfumes-title">
+                  {{ settings.home_newperfumes_title }}
+                </div>
+                <div class="newperfumes-image features_item_image">
+                  <img src="{{ 'home_newperfumes_image2.png' | asset_url }}" alt="" />
+                </div>
+                <div class="newperfumes-content features_item_content">
+                  {{ settings.home_newperfumes_content }}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% if settings.home_topperfumes_active %}
+            <div class="home_features-topperfumes">
+              <div class="col-sm-6">
+                <div class="features_item_title topperfumes-title">
+                  {{ settings.home_topperfumes_title }}
+                </div>
+                <div class="topperfumes-image features_item_image ">
+                  <img src="{{ 'home_topperfumes_image2.png' | asset_url }}" alt="" />
+                </div>
+                <div class="topperfumes-content features_item_content ">
+                  {{ settings.home_topperfumes_content }}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <a href="{{ settings.home_topperfumes_link }}" class="topperfumes-link feature_item_link">
+                  <img src="{{ 'home_topperfumes_image1.png' | asset_url }}" alt="" />
+                </a>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>   
+</section>
+{% endif %}
+
+{% if settings.home_product_active %}
+<section id="home_product_layout">
+  <div class="home_product_wrapper">          
+    <div class="home_product_inner">
+      <div class="home_product-title home-title"><h4>{{ settings.home_product_title }}</h4></div>
+      <div class="home_product-content home-content"> 
+        {% for product in collections[settings.home_product_collection].products limit: 1 %}
+        <div class="col-sm-12">     
+          {% include 'index_product' %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>     
+</section>
+{% endif %}
+
+{% if settings.home_reviews_active %}
+<section class="home_reviews_layout">
+  <div class="home_reviews_wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="home_reviews_inner">   
+          <div class="home_reviews-title home-title"><h4>{{ settings.home_reviews_title }}</h4></div>
+          <div class="home-content slider_brands clearfix" id="home_reviews-content" >
+            {% for i in (1..4) %}
+            {% capture show_slide %}home_reviews{{ i }}_active{% endcapture %}
+            {% capture image %}home_reviews{{ i }}_image.png{% endcapture %}
+            {% capture name %}home_reviews{{ i }}_name{% endcapture %}
+            {% capture star %}home_reviews{{ i }}_star{% endcapture %}                  
+            {% capture date %}home_reviews{{ i }}_date{% endcapture %}                           
+            {% capture description %}home_reviews{{ i }}_content{% endcapture %} 
+            {% if settings[show_slide] %}
+            <div class="reviews-content">
+              <div class="reviews-image">
+                <img src="{{ image | asset_url }}" alt="{{image}}" />
+              </div>
+              <div class="reviews-name">
+                <span>{{settings[name]}}</span>
+              </div>
+              <div class="reviews-star_date">
+                <span class="star">
+                  {% for i in (1..settings[star]) %}
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  {% endfor %}
+                  {% capture active_star %}{{ 5 | minus: settings[star] }}{% endcapture %} 
+                  {% for i in (1..active_star) %}
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                  {% endfor %}
+                </span>
+                <span class="calendar"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                <span class="date">{{settings[date]}}</span>
+              </div>
+              <div class="reviews-description">
+                {{settings[description]}}
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if settings.home_gallery_active %}
+<section id="home_gallery_layout">
+  <div class="home_gallery_wrapper">
+    <div class="home_gallery_inner">
+      <div class="home_gallery-title home-title"><h4>{{ settings.home_gallery_title }}</h4></div>
+      <div class="home_gallery-content home-content">        
+        <div class="gallery_image_left">
+          <div class="row gallery_group">
+            <div class="gallery_image1 gallery_image col2">
+              <!--
+                <a class="gallery-img" rel="lookbook" href="{{ 'home_gallery_image1.png' | asset_url }}"><img src="{{ 'home_gallery_image1.png' | asset_url }}" alt="" onError="style.display = 'none';" /></a>
+			  -->
+              <a class="gallery-img" href="{{ 'home_gallery_image1.png' | asset_url }}"><img src="{{ 'home_gallery_image1.png' | asset_url }}" alt="" onError="style.display = 'none';" /></a>
+            </div>
+            <div class="gallery_image2 gallery_image col1">
+              <a class="gallery-img" href="{{ 'home_gallery_image2.png' | asset_url }}"><img src="{{ 'home_gallery_image2.png' | asset_url }}" alt="" onError="style.display = 'none';" /></a>
+            </div>
+          </div>
+          <div class="row gallery_group">
+            <div class="gallery_image3 gallery_image col1">
+              <a class="gallery-img" href="{{ 'home_gallery_image3.png' | asset_url }}"><img src="{{ 'home_gallery_image3.png' | asset_url }}" alt="" onError="style.display = 'none';" /></a>
+            </div>
+            <div class="gallery_image4 gallery_image col2">
+              <a class="gallery-img" href="{{ 'home_gallery_image4.png' | asset_url }}"><img src="{{ 'home_gallery_image4.png' | asset_url }}" alt="" onError="style.display = 'none';" /></a>
+            </div>
+          </div>            
+        </div>
+        <div class="gallery_image_right">
+          <div class="gallery_image5 gallery_image"> 
+            <a class="gallery-img" href="{{ 'home_gallery_image5.png' | asset_url }}"><img src="{{ 'home_gallery_image5.png' | asset_url }}" alt="" onError="style.display = 'none';" /></a>
+          </div>
+        </div>		                
+      </div>
+    </div>
+  </div>   
+</section>
+{% endif %}
+
+{% if settings.home_buynow_active %}
+<section id="home_buynow_layout">
+  <div class="home_buynow_wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="home_buynow_inner">
+          <div class="home_buynow-title home-title"><h4>{{ settings.home_buynow_title }}</h4></div>
+          <div class="home_buynow-content home-content"> 
+            <a href="{{ settings.home_buynow_link }}" class="btn btn-2">{{ settings.home_buynow_buttontitle }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>   
+</section>
+{% endif %}
+
+{% if settings.home_newsletter_active %} 
+<section id="home_newsletter_layout">
+  <div class="home_newsletter_wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="home_newsletter_inner">
+          <div class="home_newsletter-title"><h4>{{ settings.home_newsletter_title }}</h4></div>
+          <div class="home_newsletter-content home-content"> 
+            <div class="newsletter-image"><img src="{{ 'home_newsletter_image.png' | asset_url }}" alt="" onError="style.display = 'none';" /></div>
+            <div class="newsletter-subtext">{{ settings.home_newsletter_subtitle }}</div>
+            <form action="{{ settings.home_newsletter_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+              <input type="email" value="" placeholder="{{ 'layout.footer.newsletter_email' | t }}" name="EMAIL" id="mail" /><input type="submit" class="btn newsletter" value="{{ 'layout.footer.newsletter_submit' | t }}" name="subscribe" id="subscribe" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<script>
+  $(document).ready(function() {
+    
+	$(".gallery-img").fb({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+        'maxHeight'		:  	800,
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		'helpers' : {
+            overlay : {
+                css : {
+                    'background' : 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+	});	
+  });
+</script>
+

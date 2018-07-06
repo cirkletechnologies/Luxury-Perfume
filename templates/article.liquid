@@ -1,0 +1,134 @@
+<section class="article-heading">
+  <div class="article-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="article-heading-inner">
+          <h1 class="page-title"><span>{{ 'blogs.article.title' | t }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">{{ blog.title | link_to: blog.url }}</span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="article-content">
+  <div class="article-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="article-inner">
+          {% paginate article.comments by 100 %}
+          <div id="article">
+			<!-- Begin sidebar -->
+            {% include 'blog_sidebar' %}
+            <!-- End sidebar -->
+            
+            <div class="col-sm-9 article">
+              <!-- Begin article -->
+              <div class="article-body clearfix">
+                <div class="group-blog-top">
+                  <div class="group-blog-title">                    
+                    <h1 class="article-name"><a href="{{ article.url }}">{{ article.title }}</a></h1>
+                  </div>
+                  <ul class="article-info list-inline">
+                    <li class="article-date"><i class="fa fa-calendar"></i> {{article.published_at | date: '%B %d %Y'}}</li>
+                    <li class="article-author"><i class="fa fa-user"></i> {{ article.author }}</li>                      
+                    <li class="article-comment">
+                      <a href="{{article.url}}#comments">
+                        <i class="fa fa-comments-o"></i>  <span>{{ article.comments_count }}</span> {{ article.comments_count | pluralize: 'Comment', 'Comment(s)' }}
+                      </a>
+                    </li>                      
+                  </ul>
+                </div>
+                <div class="group-blog-middle">
+                  <div class="top-banner article_banner_show article-image">  
+                    <img src="{{article.image | img_url: 'master'}}" alt="" />
+                  </div>
+                  <div id="article-content">
+                    {{ article.content }}
+                  </div>
+                </div>
+				<div class="group-blog-btm">
+                  <div class="tags-area col-sm-6">
+                    <span>{{ 'minimal.blog.tag' |t }}</span>
+                    {% for tag in article.tags %}
+                      {% if tag == article.tags.last %} {{ tag | link_to_tag: tag }} {% else %} {{ tag | link_to_tag: tag }}, {% endif%}
+                    {% endfor %}
+                  </div>
+                  {% if settings.social_sharing_products %}
+                  <div class="share-with supports-fontface col-sm-6">
+                    {% include 'social-sharing' %}
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+              <!-- End article -->    
+
+              <!-- Begin comments -->
+              {% if blog.comments_enabled? %}
+              <div id="comments" class="comments">
+                
+                {% if article.comments.size > 0 or comment.created_at %}
+                <h2 class="comment-title">{{ 'blogs.comments.title' | t }}</h3>
+                {% if comment and comment.created_at %}
+                  <div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+                    <h3 class="author">
+                    {% capture comment_date %}<strong><time datetime=\"{{ comment.created_at | date: format: 'short' }}\">{{ comment.created_at | date: format: 'short' }}</time></strong>{% endcapture %}{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: comment_date }}</h3>
+                    <div>{{ comment.content }}</div>
+                  </div> <!-- /.comment -->
+                {% endif %}
+                {% for comment in article.comments %}
+                  <div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+                    <div class="cmt-author">{{ 'minimal.blog.commented_by' |t }}<b>{{ comment.author }}</b></div>                    
+                    <div class="cmt-content">{{ comment.content }}</div>
+                    <div class="cmt-date"><i class="fa fa-calendar"></i> {{ comment.created_at | date: '%B %d %Y'}}</div>                        
+                  </div>
+                {% endfor %}
+                {% include 'pagination' %}
+
+                {% endif %}
+                <div class="comment_form">
+                  {% form "new_comment", article %}
+                  <h2 class="comment-title">{{ 'blogs.comments.form_title' | t }}</h2>
+                  {% if form.posted_successfully? %}
+                  {% if blog.moderated? %}
+                  <p class="subtext success">{{ 'blogs.comments.success_moderated' | t }}</p>
+                  {% else %}
+                  <p class="subtext success">{{ 'blogs.comments.success' | t }}</p>
+                  {% endif %}
+                  {% endif %}
+
+                  {% if form.errors %}
+                  <p class="subtext error">{{ 'blogs.comments.error' | t }}</p>
+                  {% endif %}
+
+                  <label for="comment_author">{{ 'blogs.comments.name' | t }}</label>
+                  <input type="text" id="comment_author" name="comment[author]" size="40" class="text" />
+                  <label for="comment_email">{{ 'blogs.comments.email' | t }}</label>
+                  <input type="text" id="comment_email" name="comment[email]" size="40" class="text" />
+                  <label for="comment_body">{{ 'blogs.comments.message' | t }}</label>
+                  <textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="text">{{form.body}}</textarea>
+                  <input type="submit" value="{{ 'blogs.comments.post' | t }}" class="btn" id="comment-submit" />
+                  {% if blog.moderated? %}
+                  <div class="notice">{{ 'blogs.comments.moderated' | t }}</div>
+                  {% endif %}
+                  {% endform %}
+                </div>
+              </div> 
+              {% endif %}
+              <!-- End comments -->
+            </div>
+          </div>
+          {% endpaginate %}          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

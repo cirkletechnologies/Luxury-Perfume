@@ -1,0 +1,74 @@
+{% if settings.collection_colllist_show %}
+<div class="sidebar-block collection-block">
+  <div class="sidebar-title">{{ 'minimal.collection.collection_listing' |t }}</div>
+  <div class="sidebar-content">
+    <ul class="list-cat">
+     
+      
+      
+      {% assign linklist = linklists[collection.handle] %}
+      {% unless linklist == empty %}
+      {% for link in linklist.links %}
+      <li>
+        <a href="{{ link.url }}" class="">
+          {{ link.title }}{{ link.products_count}}
+        </a>
+      </li>
+      {% endfor %}
+      {% else %}
+       {% if collection.handle == 'all' %}
+        <li class="active"><a href="/collections/all">{{ 'minimal.collection.allcollections' |t }} ( {{collections.all.products_count}} )</a></li>
+      {% else %}
+        <li><a href="/collections/all">{{ 'minimal.collection.allcollections' |t }} ( {{collections.all.products_count}} )</a></li>
+      {% endif %}
+      {% for coll in collections %}      
+        {% if coll.title == collection.title %}
+          <li class="active"><a href="{{ coll.url}}">{{ coll.title }} ({{ coll.products_count}})</a></li>
+        {% else %}
+          <li><a href="{{ coll.url}}">{{ coll.title }} ({{ coll.products_count}})</a></li>
+        {% endif %}
+      {% endfor %}
+      {% endunless %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+{% if settings.collection_filter_show %}
+<div class="sidebar-block filter-block">
+  <div class="sidebar-title">{{ 'minimal.collection.filter_title' |t }}</div>
+  <div id="tags-filter-content" class="sidebar-content">
+     {% include 'collection_tag-filter' %}
+  </div>
+</div>
+{% endif %}
+
+{% if settings.collection_vendor_show %}
+<div class="sidebar-block vender-block">
+  <div class="sidebar-title">{{ 'minimal.collection.vendor_title' |t }}</div>
+  <div class="sidebar-content">
+    <ul>
+    {% for vendor in shop.vendors %}
+      <li>
+        {{ vendor | link_to_vendor }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+{% if settings.collection_type_show %}
+<div class="sidebar-block type-block">
+  <div class="sidebar-title">{{ 'minimal.collection.type_title' |t }}</div>
+  <div class="sidebar-content">
+    <ul>
+     {% for product_type in shop.types %}
+      <li>
+        {{ product_type | link_to_type }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

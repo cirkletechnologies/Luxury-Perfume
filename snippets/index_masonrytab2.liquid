@@ -1,0 +1,71 @@
+		  <div class="tab1_content">
+            {% capture i %}{{collections[settings.home_masonry_tab2_collection].products_count | plus:0 }}{% endcapture %}            
+            {% for product in collections[settings.home_masonry_tab2_collection].products limit: 11 %}
+              {% if forloop.index == 1 %}
+            	<div class="product-item-wrapper col-sm-8 col-xs-12">     
+                  {% include 'index_proditem-big' %}
+                </div>
+              {% endif %}
+              {% if forloop.index == 2 %}
+            	<div class="group_proditems col-sm-4 col-xs-12">
+                  <div class="product-item-wrapper">     
+                    {% include 'index_proditem' %}
+                  </div>
+              {% endif %}
+              {% if i==2 %}</div>{% endif %}
+              {% if forloop.index == 3 %}
+                  <div class="product-item-wrapper">     
+                    {% include 'index_proditem' %}
+                  </div>
+               </div>
+            	<span class="clearfix"></span>
+              {% endif %}            
+              {% if forloop.index == 4 %}
+            	<div class="group_proditems col-sm-4 col-xs-12">
+                  <div class="product-item-wrapper">     
+                    {% include 'index_proditem' %}
+                  </div>
+                {% if i==4 %}</div>{% endif %}
+              {% endif %}
+              {% if forloop.index == 5 %}
+                  <div class="product-item-wrapper">     
+                    {% include 'index_proditem' %}
+                  </div>
+                </div>
+              {% endif %}
+              {% if forloop.index == 6 %}
+            	<div class="product-item-wrapper col-sm-8 col-xs-12">     
+                  {% include 'index_proditem-big' %}
+                </div>
+            	<span class="clearfix"></span>
+              {% endif %}
+            
+              {% if forloop.index == 7 %}
+                <div class="product-item-wrapper col-sm-6 col-xs-12">     
+                  {% include 'index_proditem-normal' %}
+                </div>
+              {% endif %}
+              {% if forloop.index == 8 %}
+            	<div class="product-item-wrapper col-sm-6 col-xs-12">     
+                  {% include 'index_proditem-normal' %}
+                </div>
+            	<span class="clearfix"></span>
+              {% endif %}            
+              {% if forloop.index == 9 %}
+                <div class="product-item-wrapper col-sm-4 col-xs-12">     
+                  {% include 'index_proditem' %}
+                </div>
+              {% endif %}
+              {% if forloop.index == 10 %}
+                <div class="product-item-wrapper col-sm-4 col-xs-12">     
+                  {% include 'index_proditem' %}
+                </div>
+              {% endif %}
+              {% if forloop.index == 11 %}
+                <div class="product-item-wrapper col-sm-4 col-xs-12">     
+                  {% include 'index_proditem' %}
+                </div>
+            	<span class="clearfix"></span>
+              {% endif %}
+            {% endfor %}
+          </div>

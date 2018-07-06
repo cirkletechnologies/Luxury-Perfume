@@ -1,0 +1,61 @@
+<section class="blog-heading">
+  <div class="blog-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="blog-heading-inner">
+          <h1 class="page-title"><span>{{ blog.title }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blog-content">
+  <div class="blog-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="blog-inner">
+          <div id="blog">   
+            {% paginate blog.articles by 10 %}  
+              {% include 'blog_sidebar' %}
+              <div class="col-sm-9 articles">
+                {% for article in blog.articles %}
+                <div class="article clearfix">
+                  <div class="group-blog-top">
+                    <div class="group-blog-title">                      
+                      <h2 class="article-name"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                    </div>                                                         
+                  </div>
+                  {% if article.image %}
+                    <div class="article-image">
+                      <a href="{{ article.url }}"><img src="{{article.image | img_url: 'master'}}" alt="" /></a>
+                    </div>
+                  {% endif %} 
+                  <ul class="article-info list-inline">
+                      <li class="article-date"><i class="fa fa-calendar"></i> {{article.published_at | date: '%B %d %Y'}}</li>
+                      <li class="article-author"><i class="fa fa-user"></i> {{ article.author }}</li>                      
+                      <li class="article-comment">
+                        <a href="{{article.url}}#comments">
+                         <i class="fa fa-comments-o"></i>  <span>{{ article.comments_count }}</span> {{ article.comments_count | pluralize: 'Comment', 'Comment(s)' }}
+                        </a>
+                      </li>                      
+                  </ul>
+                  <div class="article-content">{{ article.content | strip_html | truncatewords: 100 }}</div>
+                </div>                
+                {% endfor %}
+                {% include 'pagination' %}
+              </div>   
+            {% endpaginate %}                        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

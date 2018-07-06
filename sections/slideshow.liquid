@@ -1,0 +1,119 @@
+{% if section.settings.maincarousel_active %}
+<section class="main-slideshow">
+  <div id="home-slideshow" class="home-slideshow-wrapper">
+    <div class="home-slideshow-inner">
+      <div class="home-slideshow">
+        <ul class="slides">
+          {% for block in section.blocks %}
+          {% if block.settings.slide-active != false %}
+          <li class="slideshow-{{i}}">          
+            <img src="{{ block.settings.slide-image | img_url:'1920x' }}" alt="{{image}}" />
+            <div class="caption position-{{ block.settings.slide-position }}">
+              <div class="slide-caption">
+                <div class="dis_tablecell">
+                  <div class="container">
+                    <p>{{ block.settings.slide-caption_text }}</p>
+                    {% if block.settings.slide-action-text_text != "" %}
+                    <div class="flex-action not-animated"><a class="btn" href="{{ block.settings.slide-link_text }}">{{ block.settings.slide-action-text_text }}</a></div>
+                    {% endif %} 
+                  </div>                  
+                </div>                    
+              </div>                             
+            </div>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "class": "index-section index-section--flush",
+  "settings":[
+    {
+      "type": "header",
+      "content": "Main Slideshow Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "maincarousel_active",
+      "label": "Active Main Slideshow"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Setup Slide"
+        },
+        {
+          "type": "checkbox",
+          "id": "slide-active",
+          "label": "Active slide"
+        } ,
+        {
+          "type": "image_picker",
+          "id": "slide-image",
+          "label": "slide image"
+        },
+        {
+          "type":"textarea",
+          "id":"slide-caption_text",
+          "label":"text"
+        },     
+        {
+          "type": "text",
+          "id": "slide-link_text",
+          "label": "slide link"
+        },
+        {
+          "type": "text",
+          "id": "slide-action-text_text",
+          "label": "Action Text"
+        },
+        {
+          "type": "select",
+          "id": "slide-position",
+          "label": "Set the Position for Caption",
+          "options": [
+            {
+            "value": "left",
+            "label": "left"
+            },
+            {
+            "value": "middle",
+            "label": "Middle"
+            },
+            {
+            "value": "right",
+            "label": "Right"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+    "presets": [{
+      "name": "Slideshow",
+      "category": "Image",
+
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }]
+}
+{% endschema %}

@@ -1,0 +1,35 @@
+{% if settings.general_gototop %}
+<section class="home_gototop_layout">      
+  <div id="scroll-to-top" data-toggle="" data-placement="left" title="Scroll to Top" class="">
+    <i class="fa fa-angle-double-up"></i>
+  </div>    
+</section>
+{% endif %}
+<section class="copy-right">
+  <div class="copy-right-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="copy-right-inner">
+          <div class="footer_links">
+            <ul>
+              {% assign list = linklists[settings.footer_info_link] %}
+              {% for link in list.links %}
+              <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a><i class="">/</i></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="footer_social">
+            {% if settings.facebook_link != blank %}<a href="{{ settings.facebook_link }}" title="{{ 'layout.footer.social' | t: shop: shop.name, social_media: 'Facebook' }}" class="icon-social facebook"><i class="fa fa-facebook"></i></a>{% endif %}
+            {% if settings.twitter_link != blank %}<a href="{{ settings.twitter_link }}" title="{{ 'layout.footer.social' | t: shop: shop.name, social_media: 'Twitter' }}" class="icon-social twitter"><i class="fa fa-twitter"></i></a>{% endif %}            
+            {% if settings.linkedin_link != blank %}<a href="{{ settings.linkedin_link }}" title="{{ 'layout.footer.social' | t: shop: shop.name, social_media: 'linkedin' }}" class="icon-social linkedin"><i class="fa fa-linkedin"></i></a>{% endif %}                        
+            {% if settings.pinterest_link != blank %}<a href="{{ settings.pinterest_link }}" title="{{ 'layout.footer.social' | t: shop: shop.name, social_media: 'Pinterest' }}" class="icon-social pinterest"><i class="fa fa-pinterest"></i></a>{% endif %}
+            {% if settings.instagram_link != blank %}<a href="{{ settings.instagram_link }}" title="{{ 'layout.footer.social' | t: shop: shop.name, social_media: 'Instagram' }}" class="icon-social instagram"><i class="fa fa-instagram"></i></a>{% endif %}                                    
+          </div>
+          <div class="footer_copyright">
+            <span>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}</span> {{ shop.name | link_to: '/' }}. {{ 'layout.footer.reserved' | t }}
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+<section class="blcontactog-heading">
+  <div class="contact-heading-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-heading-inner">
+          <h1 class="page-title"><span>{{ page.title }}</span></h1>
+          <div class="breadcrumb clearfix">
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+            <span class="arrow-space">&#62;</span>
+            <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a>
+            </span>              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-content page-lookbook">
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="page-inner">
+          <div id="page" class="row">
+            <div class="details">              
+              {{ page.content }}
+            </div>
+          </div>
+          <div class="lookbook-content">
+            <div class="left-area col-sm-6">
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook01.jpg' | asset_url }}"><img src="{{ 'lookbook01.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook03.jpg' | asset_url }}"><img src="{{ 'lookbook03.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>              
+              {% assign temp = settings.lookbook_num | times:1 %}
+              {% if temp >=5 %}
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook05.jpg' | asset_url }}"><img src="{{ 'lookbook05.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              {% endif %}
+              {% if temp >=7 %}
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook07.jpg' | asset_url }}"><img src="{{ 'lookbook07.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              {% endif %}
+              {% if temp >=9 %}
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook09.jpg' | asset_url }}"><img src="{{ 'lookbook09.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              {% endif %}
+            </div>
+            <div class="right-area col-sm-6">
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook02.jpg' | asset_url }}"><img src="{{ 'lookbook02.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook04.jpg' | asset_url }}"><img src="{{ 'lookbook04.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              {% if temp >=6 %}
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook06.jpg' | asset_url }}"><img src="{{ 'lookbook06.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              {% endif %}
+              {% if temp >=8 %}
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook08.jpg' | asset_url }}"><img src="{{ 'lookbook08.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              {% endif %}
+              {% if temp >=10 %}
+              <div class="lb-element">
+                <a class="group-img" rel="lookbook" href="{{ 'lookbook10.jpg' | asset_url }}"><img src="{{ 'lookbook10.jpg' | asset_url }}" alt="lookbook-img" /></a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(document).ready(function() {
+    
+	$(".group-img").fb({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+        'maxHeight'		:  	800,
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		'helpers' : {
+            overlay : {
+                css : {
+                    'background' : 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+	});	
+  });
+</script>
+
